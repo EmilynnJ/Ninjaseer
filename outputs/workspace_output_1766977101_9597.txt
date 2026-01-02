@@ -1,0 +1,23 @@
+
+> frontend@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.1 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.20.0.2:3000
+
+✓ Starting...
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+✓ Ready in 625ms
+ GET /?password=aadac19a-c381-4707-b5a2-423b68d3315a 200 in 2.6s (compile: 2.4s, render: 215ms)
+ GET /?password=aadac19a-c381-4707-b5a2-423b68d3315a 200 in 67ms (compile: 5ms, render: 62ms)
+ GET /?_gl=1*aemhio*_gcl_au*NzQ1NDAzNzc3LjE3NjY5NzYwOTA.*_ga*MTE5NzM0MDAzMC4xNzY2OTc2MDkw*_ga_8NW18Q4WF2*czE3NjY5NzYwOTAkbzEkZzEkdDE3NjY5NzYyNjQkajYwJGwwJGgxNDM4MzY1Njk3&password=aadac19a-c381-4707-b5a2-423b68d3315a 200 in 69ms (compile: 4ms, render: 65ms)
+⚠ Cross origin request detected from 3000-2c942d01-3b30-4494-bc71-8a4e15394714.proxy.daytona.works to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ GET /?_gl=1*1g8qc73*_gcl_au*NzQ1NDAzNzc3LjE3NjY5NzYwOTA.*_ga*MTE5NzM0MDAzMC4xNzY2OTc2MDkw*_ga_8NW18Q4WF2*czE3NjY5NzYwOTAkbzEkZzEkdDE3NjY5NzYyNjQkajYwJGwwJGgxNDM4MzY1Njk3&password=aadac19a-c381-4707-b5a2-423b68d3315a 200 in 63ms (compile: 6ms, render: 57ms)
+✓ Compiled in 67ms
+[?25h

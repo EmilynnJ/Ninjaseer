@@ -1,0 +1,2 @@
+soulseer/frontend/node_modules/@tailwindcss/oxide-linux-x64-gnu/tailwindcss-oxide.linux-x64-gnu.node
+soulseer/frontend/node_modules/tailwindcss

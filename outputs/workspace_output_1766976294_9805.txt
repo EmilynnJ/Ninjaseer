@@ -1,0 +1,6 @@
+total 0
+drwxr-xr-x 5 root root  72 Dec 29 02:44 .
+drwxr-xr-x 4 root root 144 Dec 29 02:44 ..
+drwxr-xr-x 2 root root  10 Dec 29 02:44 admin-panel
+drwxr-xr-x 2 root root  10 Dec 29 02:44 backend
+drwxr-xr-x 2 root root  10 Dec 29 02:44 frontend

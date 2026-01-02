@@ -1,0 +1,16 @@
+total 276
+drwxr-xr-x   6 root root   4096 Dec 29 02:51 .
+drwxr-xr-x   5 root root     72 Dec 29 02:44 ..
+-rw-r--r--   1 root root    480 Dec 29 02:50 .gitignore
+drwxr-xr-x   3 root root     27 Dec 29 02:51 .next
+-rw-r--r--   1 root root   1450 Dec 29 02:50 README.md
+drwxr-xr-x   2 root root     98 Dec 29 02:50 app
+-rw-r--r--   1 root root    465 Dec 29 02:50 eslint.config.mjs
+-rw-r--r--   1 root root    247 Dec 29 02:50 next-env.d.ts
+-rw-r--r--   1 root root    133 Dec 29 02:50 next.config.ts
+drwxr-xr-x 290 root root  12288 Dec 29 02:51 node_modules
+-rw-r--r--   1 root root 227066 Dec 29 02:51 package-lock.json
+-rw-r--r--   1 root root    530 Dec 29 02:50 package.json
+-rw-r--r--   1 root root     94 Dec 29 02:50 postcss.config.mjs
+drwxr-xr-x   2 root root    115 Dec 29 02:50 public
+-rw-r--r--   1 root root    666 Dec 29 02:50 tsconfig.json

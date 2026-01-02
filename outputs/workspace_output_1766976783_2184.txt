@@ -1,0 +1,66 @@
+Collecting Django==5.0.1 (from -r requirements.txt (line 1))
+  Downloading Django-5.0.1-py3-none-any.whl.metadata (4.2 kB)
+Collecting psycopg2-binary==2.9.9 (from -r requirements.txt (line 2))
+  Downloading psycopg2_binary-2.9.9-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.4 kB)
+Collecting python-dotenv==1.0.0 (from -r requirements.txt (line 3))
+  Downloading python_dotenv-1.0.0-py3-none-any.whl.metadata (21 kB)
+Collecting djangorestframework==3.14.0 (from -r requirements.txt (line 4))
+  Downloading djangorestframework-3.14.0-py3-none-any.whl.metadata (10 kB)
+Collecting django-cors-headers==4.3.1 (from -r requirements.txt (line 5))
+  Downloading django_cors_headers-4.3.1-py3-none-any.whl.metadata (16 kB)
+Collecting requests==2.31.0 (from -r requirements.txt (line 6))
+  Downloading requests-2.31.0-py3-none-any.whl.metadata (4.6 kB)
+Collecting Pillow==10.2.0 (from -r requirements.txt (line 7))
+  Downloading pillow-10.2.0-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (9.7 kB)
+Collecting stripe==7.11.0 (from -r requirements.txt (line 8))
+  Downloading stripe-7.11.0-py2.py3-none-any.whl.metadata (2.7 kB)
+Collecting asgiref<4,>=3.7.0 (from Django==5.0.1->-r requirements.txt (line 1))
+  Downloading asgiref-3.11.0-py3-none-any.whl.metadata (9.3 kB)
+Collecting sqlparse>=0.3.1 (from Django==5.0.1->-r requirements.txt (line 1))
+  Downloading sqlparse-0.5.5-py3-none-any.whl.metadata (4.7 kB)
+Collecting pytz (from djangorestframework==3.14.0->-r requirements.txt (line 4))
+  Downloading pytz-2025.2-py2.py3-none-any.whl.metadata (22 kB)
+Collecting charset-normalizer<4,>=2 (from requests==2.31.0->-r requirements.txt (line 6))
+  Downloading charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+Collecting idna<4,>=2.5 (from requests==2.31.0->-r requirements.txt (line 6))
+  Downloading idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+Collecting urllib3<3,>=1.21.1 (from requests==2.31.0->-r requirements.txt (line 6))
+  Downloading urllib3-2.6.2-py3-none-any.whl.metadata (6.6 kB)
+Collecting certifi>=2017.4.17 (from requests==2.31.0->-r requirements.txt (line 6))
+  Downloading certifi-2025.11.12-py3-none-any.whl.metadata (2.5 kB)
+Collecting typing-extensions>=4.5.0 (from stripe==7.11.0->-r requirements.txt (line 8))
+  Downloading typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+Downloading Django-5.0.1-py3-none-any.whl (8.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.1/8.1 MB 55.2 MB/s eta 0:00:00
+Downloading psycopg2_binary-2.9.9-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.0/3.0 MB 70.9 MB/s eta 0:00:00
+Downloading python_dotenv-1.0.0-py3-none-any.whl (19 kB)
+Downloading djangorestframework-3.14.0-py3-none-any.whl (1.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 85.4 MB/s eta 0:00:00
+Downloading django_cors_headers-4.3.1-py3-none-any.whl (12 kB)
+Downloading requests-2.31.0-py3-none-any.whl (62 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.6/62.6 kB 38.5 MB/s eta 0:00:00
+Downloading pillow-10.2.0-cp311-cp311-manylinux_2_28_x86_64.whl (4.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 69.2 MB/s eta 0:00:00
+Downloading stripe-7.11.0-py2.py3-none-any.whl (893 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 894.0/894.0 kB 78.2 MB/s eta 0:00:00
+Downloading asgiref-3.11.0-py3-none-any.whl (24 kB)
+Downloading certifi-2025.11.12-py3-none-any.whl (159 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 159.4/159.4 kB 45.2 MB/s eta 0:00:00
+Downloading charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 151.6/151.6 kB 36.0 MB/s eta 0:00:00
+Downloading idna-3.11-py3-none-any.whl (71 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 71.0/71.0 kB 17.2 MB/s eta 0:00:00
+Downloading sqlparse-0.5.5-py3-none-any.whl (46 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 46.1/46.1 kB 10.6 MB/s eta 0:00:00
+Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.6/44.6 kB 10.7 MB/s eta 0:00:00
+Downloading urllib3-2.6.2-py3-none-any.whl (131 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 131.2/131.2 kB 31.8 MB/s eta 0:00:00
+Downloading pytz-2025.2-py2.py3-none-any.whl (509 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 509.2/509.2 kB 81.7 MB/s eta 0:00:00
+Installing collected packages: pytz, urllib3, typing-extensions, sqlparse, python-dotenv, psycopg2-binary, Pillow, idna, charset-normalizer, certifi, asgiref, requests, Django, stripe, djangorestframework, django-cors-headers
+Successfully installed Django-5.0.1 Pillow-10.2.0 asgiref-3.11.0 certifi-2025.11.12 charset-normalizer-3.4.4 django-cors-headers-4.3.1 djangorestframework-3.14.0 idna-3.11 psycopg2-binary-2.9.9 python-dotenv-1.0.0 pytz-2025.2 requests-2.31.0 sqlparse-0.5.5 stripe-7.11.0 typing-extensions-4.15.0 urllib3-2.6.2
+
+[notice] A new release of pip is available: 24.0 -> 25.3
+[notice] To update, run: pip install --upgrade pip

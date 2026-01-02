@@ -1,0 +1,7 @@
+npm warn exec The following package was not found and will be installed: create-next-app@16.1.1
+[?25l[36m?[39m [1mWhich linter would you like to use?[22m [90m›[39m [90m- Use arrow-keys. Return to submit.[39m
+[36m❯[39m   [36m[4mESLint[39m[24m[90m - More comprehensive lint rules[39m
+    Biome[90m[39m
+    None[90m[39m
+[2K[1G[32m✔[39m [1mWhich linter would you like to use?[22m [90m›[39m ESLint
+[?25h[?25l[2K[1G[36m?[39m [1mWould you like to use React Compiler?[22m [90m›[39m [36m[4mNo[39m[24m [90m/[39m YesTerminated

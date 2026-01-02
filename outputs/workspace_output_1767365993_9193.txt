@@ -1,0 +1,1 @@
+fatal: not in a git directory
