@@ -1,285 +1,223 @@
 # SoulSeer - A Community of Gifted Psychics
 
-A premium platform connecting spiritual readers with clients seeking guidance through chat, call, and video readings, featuring live streaming and a mystical marketplace.
+A full-stack spiritual guidance platform connecting psychic readers with clients through chat, voice, and video readings.
 
 ## 🌟 Features
 
-### Core Functionality
-- **Real-time Readings**: Pay-per-minute chat, voice, and video sessions using custom WebRTC
-- **Live Streaming**: Agora-powered live streams with virtual gifting
-- **Mystical Marketplace**: Digital and physical spiritual products
-- **Community Forum**: Discussion boards and messaging
-- **Admin Dashboard**: Django-based admin panel for reader and inventory management
+- **Real-time Readings**: Chat, voice, and video sessions using Agora RTC/RTM
+- **Live Streaming**: Psychic readers can host live streams with virtual gifting
+- **Payment System**: Stripe integration with 70/30 revenue split
+- **Authentication**: Clerk for secure user management
+- **Marketplace**: Shop for spiritual products and services
+- **Community**: Forum discussions and direct messaging
+- **Pay-per-minute**: Automatic billing during reading sessions
 
-### Payment System
-- **Client Balance System**: Prepay and use credits for readings
-- **70/30 Revenue Split**: Automatic distribution between readers and platform
-- **Daily Payouts**: Automatic payouts to readers when balance exceeds $15
-- **Stripe Integration**: Secure payment processing and Connect for reader payouts
+## 🛠 Tech Stack
 
-### User Roles
-- **Clients**: Book readings, join streams, purchase products
-- **Readers**: Manage profiles, set rates, conduct sessions, stream live
-- **Admins**: Full platform oversight, reader management, dispute resolution
+### Frontend
+- Next.js 16.1.1 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Clerk Authentication
+- Agora RTC/RTM SDK
+- Stripe.js
 
-## 🏗️ Architecture
+### Backend
+- Node.js 20+
+- Express.js
+- Socket.io (WebSocket)
+- PostgreSQL (Neon)
+- Stripe API
+- Agora Token Server
+- Clerk SDK
 
-### Backend (Node.js/Express)
-- RESTful API with WebSocket support
-- Custom WebRTC signaling server
-- Real-time minute tracking and billing
-- PostgreSQL (Neon) database
-- Clerk authentication
-- Stripe payment processing
-- Agora live streaming integration
+### Infrastructure
+- **Deployment**: Vercel or Netlify (Monorepo)
+- **Database**: Neon PostgreSQL
+- **CDN**: Vercel Edge Network
+- **Real-time**: Agora Cloud
 
-### Frontend (Next.js/React)
-- Server-side rendering
-- Responsive mobile-first design
-- Mystical dark theme (pink, black, gold, white)
-- Alex Brush and Playfair Display fonts
-- Real-time WebRTC communication
-- Agora SDK for live streaming
+## 📦 Monorepo Structure
 
-### Admin Panel (Django)
-- Reader profile management
-- Product/inventory management
-- Stripe product synchronization
-- Analytics dashboard
-- Dispute resolution
+```
+soulseer/
+├── frontend/          # Next.js application
+│   ├── app/          # App router pages
+│   ├── components/   # React components
+│   └── public/       # Static assets
+├── backend/          # Express API server
+│   ├── routes/       # API endpoints
+│   ├── services/     # Business logic
+│   ├── config/       # Database & config
+│   └── middleware/   # Auth & validation
+├── admin-panel/      # Django admin (optional)
+├── package.json      # Root monorepo config
+├── vercel.json       # Vercel deployment config
+└── netlify.toml      # Netlify deployment config
+```
 
-## 📋 Prerequisites
+## 🚀 Quick Start
 
-- Node.js 20.x or higher
-- Python 3.11 or higher
-- PostgreSQL (Neon recommended)
+### Prerequisites
+- Node.js 20+ and npm 10+
+- PostgreSQL database (Neon recommended)
 - Clerk account
 - Stripe account
 - Agora account
 
-## 🚀 Installation
+### Installation
 
-### 1. Clone the Repository
+1. **Clone the repository**
 ```bash
-git clone <repository-url>
+git clone https://github.com/EmilynnJ/Ninjaseer.git
 cd soulseer
 ```
 
-### 2. Backend Setup
+2. **Install dependencies**
 ```bash
-cd backend
-npm install
-cp .env.example .env
-# Edit .env with your credentials
-npm run dev
+npm run install:all
 ```
 
-### 3. Frontend Setup
-```bash
-cd frontend
-npm install
-cp .env.local.example .env.local
-# Edit .env.local with your credentials
-npm run dev
-```
+3. **Set up environment variables**
 
-### 4. Admin Panel Setup
-```bash
-cd admin-panel
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-cp .env.example .env
-# Edit .env with your credentials
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver 8000
-```
-
-### 5. Database Setup
-```bash
-# Run the schema.sql file in your Neon PostgreSQL database
-psql $DATABASE_URL -f backend/config/schema.sql
-```
-
-## 🔧 Configuration
-
-### Environment Variables
-
-#### Backend (.env)
+Create `.env.local` in `frontend/`:
 ```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_key
+CLERK_SECRET_KEY=your_clerk_secret
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+```
+
+Create `.env` in `backend/`:
+```env
+DATABASE_URL=your_neon_postgres_url
+CLERK_SECRET_KEY=your_clerk_secret
+AGORA_APP_ID=your_agora_app_id
+AGORA_APP_CERTIFICATE=your_agora_certificate
+STRIPE_SECRET_KEY=your_stripe_secret
 PORT=5000
-DATABASE_URL=postgresql://user:password@host:5432/soulseer
-CLERK_PUBLISHABLE_KEY=pk_test_xxxxx
-CLERK_SECRET_KEY=sk_test_xxxxx
-STRIPE_SECRET_KEY=sk_test_xxxxx
-AGORA_APP_ID=xxxxx
-AGORA_APP_CERTIFICATE=xxxxx
 ```
 
-#### Frontend (.env.local)
+4. **Set up database**
+```bash
+npm run db:setup
+```
+
+5. **Run development servers**
+```bash
+npm run dev
+```
+
+Frontend: http://localhost:3000
+Backend: http://localhost:5000
+
+## 🌐 Deployment
+
+### Vercel (Recommended)
+
+1. **Connect your GitHub repository to Vercel**
+2. **Configure build settings**:
+   - Framework Preset: Next.js
+   - Root Directory: `./`
+   - Build Command: `npm run build`
+   - Output Directory: `frontend/.next`
+
+3. **Add environment variables** in Vercel dashboard
+
+4. **Deploy**: Vercel will automatically deploy on push to main
+
+### Netlify
+
+1. **Connect your GitHub repository to Netlify**
+2. **Configure build settings**:
+   - Base directory: `frontend`
+   - Build command: `npm run build`
+   - Publish directory: `frontend/.next`
+
+3. **Add environment variables** in Netlify dashboard
+
+4. **Deploy**: Netlify will automatically deploy on push to main
+
+### Backend Deployment
+
+For production, deploy backend separately to:
+- **Railway**: Automatic deployment from GitHub
+- **Heroku**: Use Heroku CLI
+- **Render**: Connect GitHub repository
+- **AWS/GCP**: Use container deployment
+
+## 📚 Documentation
+
+- [QUICKSTART.md](./QUICKSTART.md) - Detailed setup instructions
+- [ARCHITECTURE.md](./ARCHITECTURE.md) - System design and data flow
+- [DEPLOYMENT.md](./DEPLOYMENT.md) - Production deployment guide
+- [PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md) - Complete feature overview
+- [FILE_INDEX.md](./FILE_INDEX.md) - Codebase structure
+
+## 🔑 Environment Variables
+
+### Frontend (.env.local)
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:5000
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_xxxxx
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxxxx
-NEXT_PUBLIC_AGORA_APP_ID=xxxxx
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+NEXT_PUBLIC_API_URL=
 ```
 
-#### Admin Panel (.env)
+### Backend (.env)
 ```env
-SECRET_KEY=your-secret-key
-DATABASE_URL=postgresql://user:password@host:5432/soulseer
-BACKEND_API_URL=http://localhost:5000
-STRIPE_SECRET_KEY=sk_test_xxxxx
+DATABASE_URL=
+CLERK_SECRET_KEY=
+AGORA_APP_ID=
+AGORA_APP_CERTIFICATE=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+PORT=5000
 ```
-
-## 📱 Usage
-
-### For Clients
-1. Sign up and add balance to your account
-2. Browse available readers
-3. Start a reading (chat, call, or video)
-4. Join live streams and send virtual gifts
-5. Shop for spiritual products
-
-### For Readers
-1. Admin creates your account
-2. Complete Stripe Connect onboarding
-3. Set your rates and availability
-4. Go online to accept readings
-5. Start live streams
-6. Manage your earnings
-
-### For Admins
-1. Access Django admin at http://localhost:8000/admin
-2. Create and manage reader accounts
-3. Upload reader profile pictures
-4. Manage products and inventory
-5. Handle disputes and refunds
-6. View analytics and reports
-
-## 🎨 Design System
-
-### Colors
-- **Mystical Pink**: #FF69B4
-- **Dark Pink**: #FF1493
-- **Gold**: #FFD700
-- **Purple**: #9370DB
-- **Black**: #000000
-- **White**: #FFFFFF
-
-### Typography
-- **Headings**: Alex Brush (pink)
-- **Body**: Playfair Display
-
-### Theme
-- Dark mode default
-- Cosmic background with stars
-- Mystical glow effects
-- Smooth animations
-
-## 🔐 Security
-
-- End-to-end encryption for readings
-- Clerk authentication
-- Stripe PCI compliance
-- Rate limiting on API endpoints
-- CSRF protection
-- SQL injection prevention
-- XSS protection
-
-## 📊 API Endpoints
-
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
-
-### Readers
-- `GET /api/readers` - Get all readers
-- `GET /api/readers/:id` - Get reader details
-- `PUT /api/readers/profile` - Update reader profile
-- `PUT /api/readers/status` - Update reader status
-
-### Sessions
-- `POST /api/sessions/start` - Start reading session
-- `POST /api/sessions/end/:id` - End reading session
-- `GET /api/sessions/:id` - Get session details
-- `POST /api/sessions/:id/review` - Submit review
-
-### Payments
-- `POST /api/payments/add-balance` - Add balance
-- `GET /api/payments/balance` - Get balance
-- `GET /api/payments/transactions` - Get transaction history
-
-### Streams
-- `POST /api/streams/create` - Create live stream
-- `POST /api/streams/:id/join` - Join stream
-- `POST /api/streams/:id/gift` - Send virtual gift
-- `GET /api/streams/live` - Get live streams
 
 ## 🧪 Testing
 
-### Backend Tests
 ```bash
-cd backend
+# Run all tests
 npm test
+
+# Frontend tests
+npm run test:frontend
+
+# Backend tests
+npm run test:backend
 ```
 
-### Frontend Tests
+## 📝 Scripts
+
 ```bash
-cd frontend
-npm test
+npm run dev              # Run both frontend & backend
+npm run build            # Build both apps
+npm run start            # Start production servers
+npm run install:all      # Install all dependencies
+npm run clean            # Clean node_modules
+npm run lint             # Lint all code
+npm run db:setup         # Initialize database
 ```
-
-## 📦 Deployment
-
-### Backend
-1. Set up Neon PostgreSQL database
-2. Configure environment variables
-3. Deploy to your preferred platform (Heroku, Railway, etc.)
-4. Run database migrations
-
-### Frontend
-1. Build the application: `npm run build`
-2. Deploy to Vercel or similar platform
-3. Configure environment variables
-
-### Admin Panel
-1. Set up production database
-2. Configure environment variables
-3. Run migrations: `python manage.py migrate`
-4. Collect static files: `python manage.py collectstatic`
-5. Deploy to your preferred platform
 
 ## 🤝 Contributing
 
-This is a proprietary application built by NinjaTech AI.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## 📄 License
 
-Proprietary - All rights reserved
+ISC License
 
-## 🆘 Support
+## 👥 Authors
 
-For support, contact NinjaTech AI team.
-
-## 🎯 Roadmap
-
-- [ ] Mobile apps (iOS/Android)
-- [ ] AI-powered reader matching
-- [ ] Advanced analytics dashboard
-- [ ] Multi-language support
-- [ ] Subscription plans
-- [ ] Group readings
-- [ ] Recorded session playback
+Built by NinjaTech AI
 
 ## 🙏 Acknowledgments
 
-- Built with Next.js, Express, and Django
-- Powered by Clerk, Stripe, and Agora
-- Designed with Tailwind CSS
-- Database hosted on Neon
-
----
-
-**Built with ✨ by NinjaTech AI**
+- Agora for real-time communication
+- Clerk for authentication
+- Stripe for payment processing
+- Vercel/Netlify for hosting

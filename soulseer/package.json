@@ -1,0 +1,51 @@
+{
+  "name": "soulseer-monorepo",
+  "version": "1.0.0",
+  "description": "SoulSeer - Full Stack Psychic Reading Platform",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently "npm run dev:frontend" "npm run dev:backend"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "start": "concurrently "npm run start:frontend" "npm run start:backend"",
+    "start:frontend": "cd frontend && npm start",
+    "start:backend": "cd backend && npm start",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "clean": "rm -rf node_modules frontend/node_modules backend/node_modules frontend/.next backend/dist",
+    "lint": "npm run lint:frontend && npm run lint:backend",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint:backend": "cd backend && npm run lint",
+    "test": "npm run test:frontend && npm run test:backend",
+    "test:frontend": "cd frontend && npm test",
+    "test:backend": "cd backend && npm test",
+    "db:setup": "cd backend && npm run db:setup",
+    "db:seed": "cd backend && npm run db:seed"
+  },
+  "keywords": [
+    "soulseer",
+    "psychic",
+    "readings",
+    "webrtc",
+    "agora",
+    "stripe",
+    "clerk",
+    "nextjs",
+    "express"
+  ],
+  "author": "NinjaTech AI",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
+}

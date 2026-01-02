@@ -144,7 +144,7 @@ export default function ReadingSession() {
 
   const initializeRTM = async (agoraConfig: any) => {
     // Create RTM client
-    rtmClient.current = AgoraRTM.createInstance(agoraConfig.appId);
+    rtmClient.current = (AgoraRTM as any).createInstance(agoraConfig.appId);
 
     // Login to RTM
     await rtmClient.current.login({

@@ -33,23 +33,37 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      // Fetch online readers
-      const readersResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/readers?status=online&limit=4`
-      );
-      if (readersResponse.ok) {
-        const readersData = await readersResponse.json();
-        setOnlineReaders(readersData.readers || []);
-      }
+      // Mock data for demo purposes (until database is connected)
+      setOnlineReaders([
+        {
+          user_id: '1',
+          display_name: 'Mystic Luna',
+          specialties: ['Tarot', 'Love &amp; Relationships'],
+          chat_rate: 2.99,
+          video_rate: 4.99,
+          average_rating: 4.8,
+          profile_picture_url: 'https://i.pravatar.cc/150?img=1'
+        },
+        {
+          user_id: '2',
+          display_name: 'Oracle Sarah',
+          specialties: ['Astrology', 'Career'],
+          chat_rate: 3.99,
+          video_rate: 5.99,
+          average_rating: 4.9,
+          profile_picture_url: 'https://i.pravatar.cc/150?img=2'
+        }
+      ]);
 
-      // Fetch live streams
-      const streamsResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/streams/live?limit=3`
-      );
-      if (streamsResponse.ok) {
-        const streamsData = await streamsResponse.json();
-        setLiveStreams(streamsData.streams || []);
-      }
+      setLiveStreams([
+        {
+          id: '1',
+          title: 'Full Moon Reading Session',
+          description: 'Join me for insights under the full moon',
+          viewer_count: 234,
+          display_name: 'Mystic Luna'
+        }
+      ]);
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
