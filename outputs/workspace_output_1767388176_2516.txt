@@ -1,0 +1,50 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Header from './components/Header';
+
+interface Reader {
+  user_id: string;
+  display_name: string;
+  specialties: string[];
+  chat_rate: number;
+  video_rate: number;
+  average_rating: number;
+  profile_picture_url: string;
+}
+
+interface LiveStream {
+  id: string;
+  title: string;
+  description: string;
+  viewer_count: number;
+  display_name: string;
+}
+
+export default function Home() {
+  const [onlineReaders, setOnlineReaders] = useState<Reader[]>([]);
+  const [liveStreams, setLiveStreams] = useState<LiveStream[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      // Fetch online readers
+      const readersResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/readers?status=online&limit=4`
+      );
+      if (readersResponse.ok) {
+        const readersData = await readersResponse.json();
+        setOnlineReaders(readersData.readers || []);
+      }
+
+      // Fetch live streams
+      const streamsResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/streams/live?limit=3`
+      );
+      if (streamsResponse.ok) {
+        const streamsData = await streamsResponse.json();

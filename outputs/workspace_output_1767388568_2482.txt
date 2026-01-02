@@ -1,0 +1,36 @@
+[main c04d95e] Add comprehensive Vercel and Netlify deployment guides
+ 2 files changed, 519 insertions(+)
+ create mode 100644 soulseer/NETLIFY_DEPLOYMENT.md
+ create mode 100644 soulseer/VERCEL_DEPLOYMENT.md
+remote: error: GH013: Repository rule violations found for refs/heads/main.        
+remote: 
+remote: - GITHUB PUSH PROTECTION        
+remote:   —————————————————————————————————————————        
+remote:     Resolve the following violations before pushing again        
+remote: 
+remote:     - Push cannot contain secrets        
+remote: 
+remote:             
+remote:      (?) Learn how to resolve a blocked push        
+remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        
+remote:             
+remote:             
+remote:       —— Stripe API Key ————————————————————————————————————        
+remote:        locations:        
+remote:          - commit: c04d95e5a187cc466cf66d32d678a128e614258c        
+remote:            path: soulseer/NETLIFY_DEPLOYMENT.md:47        
+remote:          - commit: c04d95e5a187cc466cf66d32d678a128e614258c        
+remote:            path: soulseer/NETLIFY_DEPLOYMENT.md:54        
+remote:          - commit: c04d95e5a187cc466cf66d32d678a128e614258c        
+remote:            path: soulseer/VERCEL_DEPLOYMENT.md:49        
+remote:          - commit: c04d95e5a187cc466cf66d32d678a128e614258c        
+remote:            path: soulseer/VERCEL_DEPLOYMENT.md:56        
+remote:             
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        
+remote:        https://github.com/EmilynnJ/Ninjaseer/security/secret-scanning/unblock-secret/37iaujbPvrfGC6BiG8HZxlHrDp8        
+remote:             
+remote: 
+remote: 
+To https://github.com/EmilynnJ/Ninjaseer.git
+ ! [remote rejected] main -> main (push declined due to repository rule violations)
+error: failed to push some refs to 'https://github.com/EmilynnJ/Ninjaseer.git'

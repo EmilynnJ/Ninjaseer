@@ -1,0 +1,29 @@
+
+> frontend@0.1.0 build
+> next build
+
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+▲ Next.js 16.1.1 (Turbopack)
+- Environments: .env.local
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 8.3s
+  Running TypeScript ...
+Failed to compile.
+
+./app/reading/[sessionId]/page.tsx:147:34
+Type error: Property 'createInstance' does not exist on type '{ BUILD: string; VERSION: string; RTM: typeof RTM; getParameter: (key: any) => any; setArea: ({ areaCodes, excludedArea, }: { areaCodes: AreaCode[]; excludedArea?: AreaCode | undefined; }) => void; setParameter: (key: any, value: any) => void; constantsType: typeof ConstantsType; RTMBaseError: typeof RTMBaseError; }'.
+
+[0m [90m 145 |[39m   [36mconst[39m initializeRTM [33m=[39m [36masync[39m (agoraConfig[33m:[39m any) [33m=>[39m {
+ [90m 146 |[39m     [90m// Create RTM client[39m
+[31m[1m>[22m[39m[90m 147 |[39m     rtmClient[33m.[39mcurrent [33m=[39m [33mAgoraRTM[39m[33m.[39mcreateInstance(agoraConfig[33m.[39mappId)[33m;[39m
+ [90m     |[39m                                  [31m[1m^[22m[39m
+ [90m 148 |[39m
+ [90m 149 |[39m     [90m// Login to RTM[39m
+ [90m 150 |[39m     [36mawait[39m rtmClient[33m.[39mcurrent[33m.[39mlogin({[0m
+Next.js build worker exited with code: 1 and signal: null

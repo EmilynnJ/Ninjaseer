@@ -1,0 +1,62 @@
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   soulseer/README.md
+	modified:   soulseer/backend/package-lock.json
+	modified:   soulseer/backend/package.json
+	modified:   soulseer/frontend/app/page.tsx
+	modified:   soulseer/frontend/app/reading/[sessionId]/page.tsx
+	modified:   soulseer/frontend/package.json
+	new file:   soulseer/netlify.toml
+	new file:   soulseer/package.json
+	new file:   soulseer/vercel.json
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	Screenshot_20260102-101814.GitHub.png
+	Screenshot_20260102-160705.Ninja AI.png
+	outputs/workspace_output_1767366022_227.txt
+	outputs/workspace_output_1767366025_8136.txt
+	outputs/workspace_output_1767366028_948.txt
+	outputs/workspace_output_1767367146_5163.txt
+	outputs/workspace_output_1767367149_4275.txt
+	outputs/workspace_output_1767367154_9469.txt
+	outputs/workspace_output_1767367157_9252.txt
+	outputs/workspace_output_1767387783_6286.txt
+	outputs/workspace_output_1767387788_6134.txt
+	outputs/workspace_output_1767387802_4642.txt
+	outputs/workspace_output_1767387806_7278.txt
+	outputs/workspace_output_1767387830_9991.txt
+	outputs/workspace_output_1767387844_7039.txt
+	outputs/workspace_output_1767387869_6971.txt
+	outputs/workspace_output_1767387875_5782.txt
+	outputs/workspace_output_1767387941_2817.txt
+	outputs/workspace_output_1767387946_852.txt
+	outputs/workspace_output_1767387949_9450.txt
+	outputs/workspace_output_1767387962_2647.txt
+	outputs/workspace_output_1767387973_3115.txt
+	outputs/workspace_output_1767387987_795.txt
+	outputs/workspace_output_1767388005_6295.txt
+	outputs/workspace_output_1767388076_1385.txt
+	outputs/workspace_output_1767388140_6007.txt
+	outputs/workspace_output_1767388144_7439.txt
+	outputs/workspace_output_1767388149_9048.txt
+	outputs/workspace_output_1767388153_275.txt
+	outputs/workspace_output_1767388156_2417.txt
+	outputs/workspace_output_1767388161_1730.txt
+	outputs/workspace_output_1767388176_2516.txt
+	outputs/workspace_output_1767388261_5896.txt
+	outputs/workspace_output_1767388266_5651.txt
+	outputs/workspace_output_1767388270_6246.txt
+	outputs/workspace_output_1767388285_4720.txt
+	outputs/workspace_output_1767388294_3609.txt
+	outputs/workspace_output_1767388324_6208.txt
+	outputs/workspace_output_1767388329_2823.txt
+	outputs/workspace_output_1767388349_2793.txt
+	outputs/workspace_output_1767388371_3239.txt
+	outputs/workspace_output_1767388375_7814.txt
+	outputs/workspace_output_1767388386_7102.txt
+	outputs/workspace_output_1767388496_4335.txt
+

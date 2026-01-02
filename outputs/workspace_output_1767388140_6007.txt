@@ -1,0 +1,5 @@
+root        1566  0.0  0.0   2584   908 ?        S    21:04   0:00 sh -c next dev
+root        1567  0.0  1.4 11516888 58344 ?      Sl   21:04   0:00 node /workspace/soulseer/frontend/node_modules/.bin/next dev
+root        2212  0.0  0.0   2920   876 ?        Ss   21:09   0:00 timeout --preserve-status --signal=KILL 60s bash -lc { cd /workspace ; mkdir -p /workspace/outputs ; } { ps aux | grep "next dev" __ec=$? } >"/workspace/outputs/workspace_output_1767388140_6007.txt" 2>&1 head -c 80000 "/workspace/outputs/workspace_output_1767388140_6007.txt" ( exit "$__ec" )
+root        2213  0.0  0.0   4352  3136 ?        S    21:09   0:00 bash -lc { cd /workspace ; mkdir -p /workspace/outputs ; } { ps aux | grep "next dev" __ec=$? } >"/workspace/outputs/workspace_output_1767388140_6007.txt" 2>&1 head -c 80000 "/workspace/outputs/workspace_output_1767388140_6007.txt" ( exit "$__ec" )
+root        2218  0.0  0.0   3752  1848 ?        S    21:09   0:00 grep next dev

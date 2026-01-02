@@ -1,0 +1,5 @@
+[main da9953c] Add monorepo configuration for Vercel/Netlify deployment
+ 9 files changed, 349 insertions(+), 263 deletions(-)
+ create mode 100644 soulseer/netlify.toml
+ create mode 100644 soulseer/package.json
+ create mode 100644 soulseer/vercel.json

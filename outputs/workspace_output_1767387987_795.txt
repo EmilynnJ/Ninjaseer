@@ -1,0 +1,6 @@
+
+> soulseer-backend@1.0.0 start
+> node server.js
+
+🚀 SoulSeer API server running on port 5000
+📡 WebSocket server ready for connections

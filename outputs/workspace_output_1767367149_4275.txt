@@ -1,0 +1,88 @@
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	deleted:    soulseer
+	new file:   soulseer/.gitignore
+	new file:   soulseer/ARCHITECTURE.md
+	new file:   soulseer/DEPLOYMENT.md
+	new file:   soulseer/FILE_INDEX.md
+	new file:   soulseer/GITHUB_SETUP.md
+	new file:   soulseer/PROJECT_SUMMARY.md
+	new file:   soulseer/QUICKSTART.md
+	new file:   soulseer/README.md
+	new file:   soulseer/admin-panel/.env.example
+	new file:   soulseer/admin-panel/manage.py
+	new file:   soulseer/admin-panel/readers/__init__.py
+	new file:   soulseer/admin-panel/readers/admin.py
+	new file:   soulseer/admin-panel/readers/apps.py
+	new file:   soulseer/admin-panel/readers/migrations/__init__.py
+	new file:   soulseer/admin-panel/readers/models.py
+	new file:   soulseer/admin-panel/readers/tests.py
+	new file:   soulseer/admin-panel/readers/views.py
+	new file:   soulseer/admin-panel/requirements.txt
+	new file:   soulseer/admin-panel/soulseer_admin/__init__.py
+	new file:   soulseer/admin-panel/soulseer_admin/asgi.py
+	new file:   soulseer/admin-panel/soulseer_admin/settings.py
+	new file:   soulseer/admin-panel/soulseer_admin/urls.py
+	new file:   soulseer/admin-panel/soulseer_admin/wsgi.py
+	new file:   soulseer/backend/.env.example
+	new file:   soulseer/backend/config/database.js
+	new file:   soulseer/backend/config/schema.sql
+	new file:   soulseer/backend/middleware/auth.js
+	new file:   soulseer/backend/package-lock.json
+	new file:   soulseer/backend/package.json
+	new file:   soulseer/backend/routes/admin.routes.js
+	new file:   soulseer/backend/routes/community.routes.js
+	new file:   soulseer/backend/routes/payments.routes.js
+	new file:   soulseer/backend/routes/readers.routes.js
+	new file:   soulseer/backend/routes/sessions.routes.js
+	new file:   soulseer/backend/routes/shop.routes.js
+	new file:   soulseer/backend/routes/streams.routes.js
+	new file:   soulseer/backend/server.js
+	new file:   soulseer/backend/services/agora.service.js
+	new file:   soulseer/backend/services/stripe.service.js
+	new file:   soulseer/frontend/.gitignore
+	new file:   soulseer/frontend/README.md
+	new file:   soulseer/frontend/app/community/page.tsx
+	new file:   soulseer/frontend/app/components/AddBalanceModal.tsx
+	new file:   soulseer/frontend/app/components/BalanceDisplay.tsx
+	new file:   soulseer/frontend/app/components/Header.tsx
+	new file:   soulseer/frontend/app/dashboard/page.tsx
+	new file:   soulseer/frontend/app/favicon.ico
+	new file:   soulseer/frontend/app/globals.css
+	new file:   soulseer/frontend/app/layout.tsx
+	new file:   soulseer/frontend/app/live/[streamId]/page.tsx
+	new file:   soulseer/frontend/app/live/page.tsx
+	new file:   soulseer/frontend/app/messages/page.tsx
+	new file:   soulseer/frontend/app/page.tsx
+	new file:   soulseer/frontend/app/reading/[sessionId]/page.tsx
+	new file:   soulseer/frontend/app/readings/page.tsx
+	new file:   soulseer/frontend/app/shop/page.tsx
+	new file:   soulseer/frontend/app/sign-in/[[...sign-in]]/page.tsx
+	new file:   soulseer/frontend/app/sign-up/[[...sign-up]]/page.tsx
+	new file:   soulseer/frontend/eslint.config.mjs
+	new file:   soulseer/frontend/middleware.ts
+	new file:   soulseer/frontend/next.config.ts
+	new file:   soulseer/frontend/package-lock.json
+	new file:   soulseer/frontend/package.json
+	new file:   soulseer/frontend/postcss.config.mjs
+	new file:   soulseer/frontend/public/file.svg
+	new file:   soulseer/frontend/public/globe.svg
+	new file:   soulseer/frontend/public/next.svg
+	new file:   soulseer/frontend/public/vercel.svg
+	new file:   soulseer/frontend/public/window.svg
+	new file:   soulseer/frontend/tailwind.config.js
+	new file:   soulseer/frontend/tsconfig.json
+	new file:   soulseer/setup.sh
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	Screenshot_20260102-101814.GitHub.png
+	outputs/workspace_output_1767366022_227.txt
+	outputs/workspace_output_1767366025_8136.txt
+	outputs/workspace_output_1767366028_948.txt
+	outputs/workspace_output_1767367146_5163.txt
+	outputs/workspace_output_1767367149_4275.txt
+

@@ -1,0 +1,25 @@
+
+> frontend@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.1 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.16.0.210:3000
+- Environments: .env.local
+
+✓ Starting...
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+✓ Ready in 1204ms
+  Reload env: .env.local
+✓ Compiled in 11ms
+  Reload env: .env.local
+○ Compiling / ...
+ GET /?password=a64ee88b-a5ce-4ad6-b04d-0b62fec55e56 200 in 3.9s (compile: 3.6s, proxy.ts: 92ms, render: 213ms)
+ GET /?password=a64ee88b-a5ce-4ad6-b04d-0b62fec55e56 200 in 293ms (compile: 104ms, proxy.ts: 15ms, render: 175ms)
+ GET /?_gl=1*biutx6*_gcl_au*NzQ1NDAzNzc3LjE3NjY5NzYwOTA.*_ga*MTE5NzM0MDAzMC4xNzY2OTc2MDkw*_ga_8NW18Q4WF2*czE3NjczODczMTQkbzQkZzEkdDE3NjczODc3OTMkajYwJGwwJGg0MzE3MDIwODk.&password=a64ee88b-a5ce-4ad6-b04d-0b62fec55e56 200 in 449ms (compile: 5ms, proxy.ts: 404ms, render: 40ms)
+[?25h
