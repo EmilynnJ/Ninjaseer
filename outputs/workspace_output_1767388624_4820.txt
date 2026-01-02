@@ -1,0 +1,58 @@
+[main 47f77ae] Add comprehensive deployment checklist and finalize monorepo setup
+ 50 files changed, 1093 insertions(+)
+ create mode 100644 Screenshot_20260102-101814.GitHub.png
+ create mode 100644 Screenshot_20260102-160705.Ninja AI.png
+ create mode 100644 outputs/workspace_output_1767366022_227.txt
+ create mode 100644 outputs/workspace_output_1767366025_8136.txt
+ create mode 100644 outputs/workspace_output_1767366028_948.txt
+ create mode 100644 outputs/workspace_output_1767367146_5163.txt
+ create mode 100644 outputs/workspace_output_1767367149_4275.txt
+ create mode 100644 outputs/workspace_output_1767367154_9469.txt
+ create mode 100644 outputs/workspace_output_1767367157_9252.txt
+ create mode 100644 outputs/workspace_output_1767387783_6286.txt
+ create mode 100644 outputs/workspace_output_1767387788_6134.txt
+ create mode 100644 outputs/workspace_output_1767387802_4642.txt
+ create mode 100644 outputs/workspace_output_1767387806_7278.txt
+ create mode 100644 outputs/workspace_output_1767387830_9991.txt
+ create mode 100644 outputs/workspace_output_1767387844_7039.txt
+ create mode 100644 outputs/workspace_output_1767387869_6971.txt
+ create mode 100644 outputs/workspace_output_1767387875_5782.txt
+ create mode 100644 outputs/workspace_output_1767387941_2817.txt
+ create mode 100644 outputs/workspace_output_1767387946_852.txt
+ create mode 100644 outputs/workspace_output_1767387949_9450.txt
+ create mode 100644 outputs/workspace_output_1767387962_2647.txt
+ create mode 100644 outputs/workspace_output_1767387973_3115.txt
+ create mode 100644 outputs/workspace_output_1767387987_795.txt
+ create mode 100644 outputs/workspace_output_1767388005_6295.txt
+ create mode 100644 outputs/workspace_output_1767388076_1385.txt
+ create mode 100644 outputs/workspace_output_1767388140_6007.txt
+ create mode 100644 outputs/workspace_output_1767388144_7439.txt
+ create mode 100644 outputs/workspace_output_1767388149_9048.txt
+ create mode 100644 outputs/workspace_output_1767388153_275.txt
+ create mode 100644 outputs/workspace_output_1767388156_2417.txt
+ create mode 100644 outputs/workspace_output_1767388161_1730.txt
+ create mode 100644 outputs/workspace_output_1767388176_2516.txt
+ create mode 100644 outputs/workspace_output_1767388261_5896.txt
+ create mode 100644 outputs/workspace_output_1767388266_5651.txt
+ create mode 100644 outputs/workspace_output_1767388270_6246.txt
+ create mode 100644 outputs/workspace_output_1767388285_4720.txt
+ create mode 100644 outputs/workspace_output_1767388294_3609.txt
+ create mode 100644 outputs/workspace_output_1767388324_6208.txt
+ create mode 100644 outputs/workspace_output_1767388329_2823.txt
+ create mode 100644 outputs/workspace_output_1767388349_2793.txt
+ create mode 100644 outputs/workspace_output_1767388371_3239.txt
+ create mode 100644 outputs/workspace_output_1767388375_7814.txt
+ create mode 100644 outputs/workspace_output_1767388386_7102.txt
+ create mode 100644 outputs/workspace_output_1767388496_4335.txt
+ create mode 100644 outputs/workspace_output_1767388501_5056.txt
+ create mode 100644 outputs/workspace_output_1767388505_7042.txt
+ create mode 100644 outputs/workspace_output_1767388568_2482.txt
+ create mode 100644 outputs/workspace_output_1767388588_3776.txt
+ create mode 100644 outputs/workspace_output_1767388624_4820.txt
+ create mode 100644 soulseer/DEPLOYMENT_CHECKLIST.md
+remote: 
+remote: GitHub found 33 vulnerabilities on EmilynnJ/Ninjaseer's default branch (2 critical, 14 high, 15 moderate, 2 low). To find out more, visit:        
+remote:      https://github.com/EmilynnJ/Ninjaseer/security/dependabot        
+remote: 
+To https://github.com/EmilynnJ/Ninjaseer.git
+   6e4278d..47f77ae  main -> main

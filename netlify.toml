@@ -1,12 +1,12 @@
 [build]
-  base = "frontend"
+  base = "soulseer/frontend"
   command = "npm run build"
   publish = ".next"
 
 [build.environment]
   NODE_VERSION = "20"
 
-# Netlify Next.js plugin for SSR support
+# Netlify Next.js plugin for full SSR support
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
@@ -16,5 +16,5 @@
   status = 200
 
 [functions]
-  directory = "backend"
+  directory = "soulseer/backend"
   node_bundler = "esbuild"
