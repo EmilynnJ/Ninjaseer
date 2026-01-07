@@ -12,9 +12,6 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/:splat"
+  to = "https://your-backend-url.com/api/:splat"
   status = 200
-
-[functions]
-  directory = "soulseer/backend"
-  node_bundler = "esbuild"
+  force = true

@@ -1,0 +1,19 @@
+[main c35b14c] Fix Netlify configuration for Next.js SSR deployment
+ 14 files changed, 120 insertions(+), 7 deletions(-)
+ create mode 100644 Screenshot_20260102-172209.Chrome.png
+ create mode 100644 Screenshot_20260102-172216.Chrome.png
+ create mode 100644 Screenshot_20260102-172314.Chrome.png
+ create mode 100644 netlify.toml
+ create mode 100644 outputs/workspace_output_1767392844_4106.txt
+ create mode 100644 outputs/workspace_output_1767392849_7296.txt
+ create mode 100644 outputs/workspace_output_1767392855_4015.txt
+ create mode 100644 outputs/workspace_output_1767392862_3252.txt
+ create mode 100644 outputs/workspace_output_1767392892_5526.txt
+ create mode 100644 outputs/workspace_output_1767392935_6452.txt
+ create mode 100644 outputs/workspace_output_1767392950_8004.txt
+remote: 
+remote: GitHub found 33 vulnerabilities on EmilynnJ/Ninjaseer's default branch (2 critical, 14 high, 15 moderate, 2 low). To find out more, visit:        
+remote:      https://github.com/EmilynnJ/Ninjaseer/security/dependabot        
+remote: 
+To https://github.com/EmilynnJ/Ninjaseer.git
+   47f77ae..c35b14c  main -> main
