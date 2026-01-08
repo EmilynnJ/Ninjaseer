@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "buildCommand": "cd soulseer/frontend && npm install && npm run build",
+  "outputDirectory": "soulseer/frontend/.next",
+  "framework": "nextjs",
+  "installCommand": "cd soulseer/frontend && npm install",
+  "devCommand": "cd soulseer/frontend && npm run dev",
+  "env": {
+    "NODE_VERSION": "20"
+  }
+}
