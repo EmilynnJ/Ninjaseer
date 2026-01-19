@@ -6,9 +6,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useUser } from '@clerk/nextjs';
-import { userService } from '@/lib/api/services';
-import { User, UserProfile } from '@/types';
+import { UserProfile } from '@/types';
 
 interface AuthContextType {
   user: UserProfile | null;
@@ -17,59 +15,101 @@ interface AuthContextType {
   isReader: boolean;
   isAdmin: boolean;
   refreshUser: () => Promise<void>;
-  updateProfile: (updates: Partial<User>) => Promise<void>;
+  updateProfile: (updates: Partial<UserProfile>) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const { user: clerkUser, isLoaded: clerkLoaded, isSignedIn } = useUser();
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch user profile when Clerk user is loaded
+  // Fetch user profile on mount
   useEffect(() => {
     async function loadUserProfile() {
-      if (!clerkLoaded) {
-        setIsLoading(true);
-        return;
-      }
-
-      if (isSignedIn && clerkUser) {
-        try {
-          // Sync user with backend
-          await userService.getCurrentUser();
-          
-          // Fetch user profile
-          const response = await userService.getCurrentUser();
-          setUser(response.data);
-        } catch (error) {
-          console.error('Failed to load user profile:', error);
+      try {
+        // Check if we have a token
+        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        
+        if (!token) {
           setUser(null);
+          setIsLoading(false);
+          return;
         }
-      } else {
-        setUser(null);
-      }
 
-      setIsLoading(false);
+        // Fetch user profile from API
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/users/me`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data.user || data);
+        } else {
+          setUser(null);
+          // Clear invalid token
+          localStorage.removeItem('token');
+        }
+      } catch (error) {
+        console.error('Failed to load user profile:', error);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     loadUserProfile();
-  }, [clerkLoaded, isSignedIn, clerkUser]);
+  }, []);
 
   const refreshUser = async () => {
     try {
-      const response = await userService.getCurrentUser();
-      setUser(response.data);
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+      
+      if (!token) {
+        setUser(null);
+        return;
+      }
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/users/me`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data.user || data);
+      }
     } catch (error) {
       console.error('Failed to refresh user:', error);
     }
   };
 
-  const updateProfile = async (updates: Partial<User>) => {
+  const updateProfile = async (updates: Partial<UserProfile>) => {
     try {
-      const response = await userService.updateProfile(updates);
-      setUser(response.data);
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+      
+      if (!token) {
+        throw new Error('Not authenticated');
+      }
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/users/me`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updates),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data.user || data);
+      } else {
+        throw new Error('Failed to update profile');
+      }
     } catch (error) {
       console.error('Failed to update profile:', error);
       throw error;
@@ -79,7 +119,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const value: AuthContextType = {
     user,
     isLoading,
-    isAuthenticated: isSignedIn && !!user,
+    isAuthenticated: !!user,
     isReader: user?.role === 'reader',
     isAdmin: user?.role === 'admin',
     refreshUser,

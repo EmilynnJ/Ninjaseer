@@ -5,8 +5,7 @@
 
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { sessionService } from '@/lib/api/services';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { SessionWithDetails, SessionType, AgoraCredentials } from '@/types';
 
 interface SessionContextType {
@@ -27,18 +26,40 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(false);
   const [agoraCredentials, setAgoraCredentials] = useState<AgoraCredentials | null>(null);
 
-  const refreshActiveSession = async () => {
-    try {
-      setIsLoading(true);
-      const response = await sessionService.getActiveSession();
-      const session = response.data.session;
+  const getToken = () => {
+    if (typeof window === 'undefined') return null;
+    return localStorage.getItem('token');
+  };
 
-      if (session) {
-        setActiveSession(session);
-        setAgoraCredentials(response.data.agora);
-      } else {
+  const getApiUrl = () => {
+    return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+  };
+
+  const refreshActiveSession = useCallback(async () => {
+    try {
+      const token = getToken();
+      if (!token) {
         setActiveSession(null);
         setAgoraCredentials(null);
+        return;
+      }
+
+      setIsLoading(true);
+      const response = await fetch(`${getApiUrl()}/api/sessions/active`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.session) {
+          setActiveSession(data.session);
+          setAgoraCredentials(data.agora || null);
+        } else {
+          setActiveSession(null);
+          setAgoraCredentials(null);
+        }
       }
     } catch (error) {
       console.error('Failed to refresh active session:', error);
@@ -47,15 +68,33 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   const startSession = async (readerId: number, sessionType: SessionType) => {
     try {
+      const token = getToken();
+      if (!token) {
+        throw new Error('Not authenticated');
+      }
+
       setIsLoading(true);
-      const response = await sessionService.startSession(readerId, sessionType);
-      
-      setActiveSession(response.data.session);
-      setAgoraCredentials(response.data.agora);
+      const response = await fetch(`${getApiUrl()}/api/sessions/start`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ readerId, sessionType }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to start session');
+      }
+
+      const data = await response.json();
+      setActiveSession(data.session);
+      setAgoraCredentials(data.agora || null);
     } catch (error) {
       console.error('Failed to start session:', error);
       throw error;
@@ -66,9 +105,26 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   const endSession = async (durationMinutes: number) => {
     try {
+      const token = getToken();
+      if (!token || !activeSession) {
+        throw new Error('No active session');
+      }
+
       setIsLoading(true);
-      await sessionService.endSession(activeSession!.id, durationMinutes);
-      
+      const response = await fetch(`${getApiUrl()}/api/sessions/${activeSession.id}/end`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ durationMinutes }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to end session');
+      }
+
       setActiveSession(null);
       setAgoraCredentials(null);
     } catch (error) {
@@ -81,9 +137,26 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   const cancelSession = async (reason?: string) => {
     try {
+      const token = getToken();
+      if (!token || !activeSession) {
+        throw new Error('No active session');
+      }
+
       setIsLoading(true);
-      await sessionService.cancelSession(activeSession!.id, reason);
-      
+      const response = await fetch(`${getApiUrl()}/api/sessions/${activeSession.id}/cancel`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ reason }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to cancel session');
+      }
+
       setActiveSession(null);
       setAgoraCredentials(null);
     } catch (error) {
@@ -95,19 +168,22 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    // Refresh active session periodically
+    // Only run on client side
+    if (typeof window !== 'undefined') {
+      refreshActiveSession();
+    }
+  }, [refreshActiveSession]);
+
+  // Refresh active session periodically when in session
+  useEffect(() => {
+    if (!activeSession) return;
+
     const interval = setInterval(() => {
-      if (activeSession) {
-        refreshActiveSession();
-      }
+      refreshActiveSession();
     }, 30000); // Every 30 seconds
 
     return () => clearInterval(interval);
-  }, [activeSession]);
-
-  useEffect(() => {
-    refreshActiveSession();
-  }, []);
+  }, [activeSession, refreshActiveSession]);
 
   const value: SessionContextType = {
     activeSession,
