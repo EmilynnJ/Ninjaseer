@@ -9,6 +9,7 @@
 [build.environment]
   NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_API_URL,NEXT_PUBLIC_AGORA_APP_ID,NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,NEXT_CLERK_PUBLISHABLE_KEY"
 
 # Next.js Runtime Plugin for full SSR support
 [[plugins]]
