@@ -1,32 +1,27 @@
-# Netlify Monorepo Configuration
+# Netlify Configuration for SoulSeer
+# Base directory is set to soulseer/frontend where package.json with Next.js is located
+
 [build]
   base = "soulseer/frontend"
-  command = "npm install && npm run build"
+  command = "npm install --legacy-peer-deps && npm run build"
   publish = ".next"
 
 [build.environment]
   NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
 
-# Next.js Runtime Plugin
+# Next.js Runtime Plugin for full SSR support
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Backend as Netlify Functions
-[functions]
-  directory = "../backend"
-  node_bundler = "esbuild"
-  included_files = ["../backend/**"]
+# Environment variables (set these in Netlify dashboard)
+# NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+# CLERK_SECRET_KEY
+# NEXT_PUBLIC_API_URL
 
-# API Routes
+# Redirects for API calls to backend
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/server/:splat"
+  to = "https://your-backend-url.com/api/:splat"
   status = 200
   force = true
-
-# SPA Fallback
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
