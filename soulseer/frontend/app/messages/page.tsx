@@ -1,10 +1,14 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useAuth } from '@clerk/nextjs';
+import dynamic from 'next/dynamic';
 import Header from '../components/Header';
+
+// Dynamically import Clerk components
+const SignedIn = dynamic(() => import('@clerk/nextjs').then(mod => mod.SignedIn), { ssr: false });
+const SignedOut = dynamic(() => import('@clerk/nextjs').then(mod => mod.SignedOut), { ssr: false });
 
 // Types
 interface User {
@@ -549,9 +553,28 @@ const EmptyState = ({ type }: { type: 'no-conversations' | 'no-selection' }) => 
   );
 };
 
-// Main Page Component
-export default function MessagesPage() {
-  const { isSignedIn } = useAuth();
+// Sign in required component
+const SignInRequired = () => (
+  <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900/20 to-gray-900">
+    <Header />
+    <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="text-center">
+        <div className="text-6xl mb-4">🔒</div>
+        <h2 className="text-2xl font-bold text-white mb-2">Sign In Required</h2>
+        <p className="text-gray-400 mb-4">Please sign in to access your messages</p>
+        <Link
+          href="/sign-in"
+          className="inline-block px-6 py-3 bg-pink-500 text-white font-medium rounded-full hover:bg-pink-600 transition-colors"
+        >
+          Sign In
+        </Link>
+      </div>
+    </div>
+  </div>
+);
+
+// Messages content component
+const MessagesContent = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -561,7 +584,6 @@ export default function MessagesPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Simulate API call
     const fetchConversations = async () => {
       setIsLoading(true);
       await new Promise(resolve => setTimeout(resolve, 500));
@@ -573,7 +595,6 @@ export default function MessagesPage() {
   }, []);
 
   useEffect(() => {
-    // Load messages when conversation is selected
     if (selectedConversation) {
       const conversationMessages = mockMessages[selectedConversation.id] || [];
       setMessages(conversationMessages);
@@ -581,7 +602,6 @@ export default function MessagesPage() {
   }, [selectedConversation]);
 
   useEffect(() => {
-    // Scroll to bottom when messages change
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
@@ -589,7 +609,6 @@ export default function MessagesPage() {
     setSelectedConversation(conversation);
     setShowMobileChat(true);
     
-    // Mark as read
     setConversations(prev =>
       prev.map(c =>
         c.id === conversation.id ? { ...c, unreadCount: 0 } : c
@@ -612,7 +631,6 @@ export default function MessagesPage() {
 
     setMessages(prev => [...prev, newMessage]);
 
-    // Update conversation's last message
     setConversations(prev =>
       prev.map(c =>
         c.id === selectedConversation.id
@@ -621,7 +639,6 @@ export default function MessagesPage() {
       )
     );
 
-    // Simulate message delivery
     setTimeout(() => {
       setMessages(prev =>
         prev.map(m =>
@@ -636,27 +653,6 @@ export default function MessagesPage() {
   );
 
   const totalUnread = conversations.reduce((sum, c) => sum + c.unreadCount, 0);
-
-  if (!isSignedIn) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900/20 to-gray-900">
-        <Header />
-        <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-center">
-            <div className="text-6xl mb-4">🔒</div>
-            <h2 className="text-2xl font-bold text-white mb-2">Sign In Required</h2>
-            <p className="text-gray-400 mb-4">Please sign in to access your messages</p>
-            <Link
-              href="/sign-in"
-              className="inline-block px-6 py-3 bg-pink-500 text-white font-medium rounded-full hover:bg-pink-600 transition-colors"
-            >
-              Sign In
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900/20 to-gray-900">
@@ -762,5 +758,19 @@ export default function MessagesPage() {
         </div>
       </main>
     </div>
+  );
+};
+
+// Main Page Component
+export default function MessagesPage() {
+  return (
+    <>
+      <SignedIn>
+        <MessagesContent />
+      </SignedIn>
+      <SignedOut>
+        <SignInRequired />
+      </SignedOut>
+    </>
   );
 }

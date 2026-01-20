@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useAuth } from '@clerk/nextjs';
+
 import Header from '../components/Header';
 
 // Types
@@ -172,78 +172,6 @@ const mockPosts: ForumPost[] = [
     isAnswered: true,
     createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
     lastActivityAt: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString()
-  },
-  {
-    id: '6',
-    title: 'Poll: What\'s your favorite divination method?',
-    slug: 'poll-favorite-divination-method',
-    content: 'I\'m curious to know what divination methods our community prefers...',
-    excerpt: 'I\'m curious to know what divination methods our community prefers. Vote and share why you chose your answer!',
-    type: 'poll',
-    category: 'General',
-    tags: ['poll', 'divination', 'tarot', 'astrology', 'community'],
-    author: {
-      id: '5',
-      displayName: 'MysticExplorer',
-      profileImageUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100',
-      isVerified: false,
-      role: 'user'
-    },
-    viewCount: 789,
-    commentCount: 56,
-    reactionCount: 123,
-    isPinned: false,
-    isFeatured: false,
-    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-    lastActivityAt: new Date(Date.now() - 45 * 60 * 1000).toISOString()
-  },
-  {
-    id: '7',
-    title: 'My journey from skeptic to believer',
-    slug: 'journey-from-skeptic-to-believer',
-    content: 'I used to think all of this was nonsense. Then something happened that changed everything...',
-    excerpt: 'I used to think all of this was nonsense. I was the biggest skeptic you could find. Then something happened that changed everything...',
-    type: 'experience',
-    category: 'Spiritual Growth',
-    tags: ['skeptic', 'journey', 'spiritual awakening', 'personal story'],
-    author: {
-      id: '6',
-      displayName: 'FormerSkeptic',
-      profileImageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100',
-      isVerified: false,
-      role: 'user'
-    },
-    viewCount: 2345,
-    commentCount: 78,
-    reactionCount: 167,
-    isPinned: false,
-    isFeatured: true,
-    createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
-    lastActivityAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString()
-  },
-  {
-    id: '8',
-    title: 'Mercury Retrograde Survival Tips',
-    slug: 'mercury-retrograde-survival-tips',
-    content: 'Mercury retrograde is coming up and I wanted to share some tips that have helped me...',
-    excerpt: 'Mercury retrograde is coming up! Here are my tried and tested survival tips to help you navigate this challenging period...',
-    type: 'discussion',
-    category: 'Astrology',
-    tags: ['mercury retrograde', 'astrology', 'tips', 'survival guide'],
-    author: {
-      id: '3',
-      displayName: 'Luna Starweaver',
-      profileImageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100',
-      isVerified: true,
-      role: 'reader'
-    },
-    viewCount: 1567,
-    commentCount: 45,
-    reactionCount: 89,
-    isPinned: false,
-    isFeatured: false,
-    createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
-    lastActivityAt: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString()
   }
 ];
 
@@ -254,8 +182,6 @@ const categories: Category[] = [
   { id: 'crystals', name: 'Crystals', icon: '💎', description: 'Crystal healing and properties', postCount: 234, color: 'pink' },
   { id: 'psychic-development', name: 'Psychic Development', icon: '🔮', description: 'Developing your abilities', postCount: 178, color: 'indigo' },
   { id: 'spiritual-growth', name: 'Spiritual Growth', icon: '🌱', description: 'Personal spiritual journey', postCount: 156, color: 'green' },
-  { id: 'mediumship', name: 'Mediumship', icon: '👻', description: 'Connecting with spirits', postCount: 123, color: 'violet' },
-  { id: 'dreams', name: 'Dreams', icon: '💭', description: 'Dream interpretation', postCount: 98, color: 'cyan' },
   { id: 'general', name: 'General', icon: '💬', description: 'General discussions', postCount: 456, color: 'gray' },
   { id: 'announcements', name: 'Announcements', icon: '📢', description: 'Official announcements', postCount: 12, color: 'yellow' }
 ];
@@ -316,7 +242,6 @@ const PostCard = ({ post }: { post: ForumPost }) => {
 
   return (
     <div className={`bg-gray-800/30 rounded-xl border ${post.isPinned ? 'border-yellow-500/50' : 'border-gray-700'} hover:border-pink-500/50 transition-colors p-4`}>
-      {/* Header */}
       <div className="flex items-start gap-3 mb-3">
         <Link href={`/profile/${post.author.id}`}>
           <Image
@@ -359,7 +284,6 @@ const PostCard = ({ post }: { post: ForumPost }) => {
         <PostTypeIcon type={post.type} />
       </div>
       
-      {/* Content */}
       <Link href={`/community/${post.slug}`} className="block group">
         <h3 className="text-lg font-semibold text-white group-hover:text-pink-400 transition-colors mb-2">
           {post.title}
@@ -369,7 +293,6 @@ const PostCard = ({ post }: { post: ForumPost }) => {
         </p>
       </Link>
       
-      {/* Tags */}
       <div className="flex flex-wrap gap-2 mb-3">
         {post.tags.slice(0, 4).map((tag) => (
           <Link
@@ -380,12 +303,8 @@ const PostCard = ({ post }: { post: ForumPost }) => {
             #{tag}
           </Link>
         ))}
-        {post.tags.length > 4 && (
-          <span className="px-2 py-1 text-gray-500 text-xs">+{post.tags.length - 4} more</span>
-        )}
       </div>
       
-      {/* Footer */}
       <div className="flex items-center justify-between pt-3 border-t border-gray-700">
         <div className="flex items-center gap-4 text-sm text-gray-500">
           <span className="flex items-center gap-1">
@@ -470,134 +389,9 @@ const TrendingTopics = ({ topics }: { topics: TrendingTopic[] }) => {
   );
 };
 
-const CreatePostModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [category, setCategory] = useState('general');
-  const [type, setType] = useState('discussion');
-  const [tags, setTags] = useState('');
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/70" onClick={onClose} />
-      
-      <div className="relative bg-gray-900 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-gray-900 p-4 border-b border-gray-800 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-white">Create Post</h2>
-          <button onClick={onClose} className="p-2 text-gray-400 hover:text-white">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        
-        <div className="p-4 space-y-4">
-          {/* Post Type */}
-          <div>
-            <label className="block text-gray-400 text-sm mb-2">Post Type</label>
-            <div className="flex flex-wrap gap-2">
-              {[
-                { value: 'discussion', label: '💬 Discussion' },
-                { value: 'question', label: '❓ Question' },
-                { value: 'experience', label: '✨ Experience' },
-                { value: 'article', label: '📄 Article' },
-                { value: 'poll', label: '📊 Poll' }
-              ].map((option) => (
-                <button
-                  key={option.value}
-                  onClick={() => setType(option.value)}
-                  className={`px-4 py-2 rounded-full text-sm transition-colors ${
-                    type === option.value
-                      ? 'bg-pink-500 text-white'
-                      : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
-                  }`}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          </div>
-          
-          {/* Category */}
-          <div>
-            <label className="block text-gray-400 text-sm mb-2">Category</label>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-pink-500 focus:outline-none"
-            >
-              {categories.filter(c => c.id !== 'all' && c.id !== 'announcements').map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.icon} {cat.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          
-          {/* Title */}
-          <div>
-            <label className="block text-gray-400 text-sm mb-2">Title</label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Enter a descriptive title..."
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:border-pink-500 focus:outline-none"
-            />
-          </div>
-          
-          {/* Content */}
-          <div>
-            <label className="block text-gray-400 text-sm mb-2">Content</label>
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="Share your thoughts, questions, or experiences..."
-              rows={8}
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:border-pink-500 focus:outline-none resize-none"
-            />
-          </div>
-          
-          {/* Tags */}
-          <div>
-            <label className="block text-gray-400 text-sm mb-2">Tags (comma separated)</label>
-            <input
-              type="text"
-              value={tags}
-              onChange={(e) => setTags(e.target.value)}
-              placeholder="tarot, love, guidance..."
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:border-pink-500 focus:outline-none"
-            />
-          </div>
-        </div>
-        
-        <div className="sticky bottom-0 bg-gray-900 p-4 border-t border-gray-800 flex gap-3">
-          <button
-            onClick={onClose}
-            className="flex-1 py-3 bg-gray-800 text-white font-medium rounded-full hover:bg-gray-700 transition-colors"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={() => {
-              // Handle post creation
-              onClose();
-            }}
-            className="flex-1 py-3 bg-pink-500 text-white font-medium rounded-full hover:bg-pink-600 transition-colors"
-          >
-            Post
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 // Main Page Component
 export default function CommunityPage() {
-  const { isSignedIn } = useAuth();
+  
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState<'recent' | 'popular' | 'trending'>('recent');
   const [postType, setPostType] = useState<string>('all');
@@ -607,7 +401,6 @@ export default function CommunityPage() {
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   useEffect(() => {
-    // Simulate API call
     const fetchPosts = async () => {
       setIsLoading(true);
       await new Promise(resolve => setTimeout(resolve, 500));
@@ -618,23 +411,19 @@ export default function CommunityPage() {
     fetchPosts();
   }, []);
 
-  // Filter and sort posts
   const filteredPosts = useMemo(() => {
     let filtered = [...posts];
     
-    // Filter by category
     if (selectedCategory !== 'all') {
       filtered = filtered.filter(p => 
         p.category.toLowerCase().replace(/\s+/g, '-') === selectedCategory
       );
     }
     
-    // Filter by type
     if (postType !== 'all') {
       filtered = filtered.filter(p => p.type === postType);
     }
     
-    // Filter by search
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(p => 
@@ -644,7 +433,6 @@ export default function CommunityPage() {
       );
     }
     
-    // Sort (pinned posts always first)
     const pinned = filtered.filter(p => p.isPinned);
     const unpinned = filtered.filter(p => !p.isPinned);
     
@@ -655,7 +443,7 @@ export default function CommunityPage() {
       case 'trending':
         unpinned.sort((a, b) => b.reactionCount - a.reactionCount);
         break;
-      default: // recent
+      default:
         unpinned.sort((a, b) => 
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
@@ -665,14 +453,13 @@ export default function CommunityPage() {
   }, [posts, selectedCategory, postType, searchQuery, sortBy]);
 
   const totalPosts = posts.length;
-  const totalMembers = 12456; // Mock data
+  const totalMembers = 12456;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900/20 to-gray-900">
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Page Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
@@ -683,7 +470,6 @@ export default function CommunityPage() {
             </p>
           </div>
           
-          {/* Stats */}
           <div className="flex items-center gap-6">
             <div className="text-center">
               <div className="text-2xl font-bold text-white">{totalPosts.toLocaleString()}</div>
@@ -693,24 +479,20 @@ export default function CommunityPage() {
               <div className="text-2xl font-bold text-white">{totalMembers.toLocaleString()}</div>
               <p className="text-gray-500 text-sm">Members</p>
             </div>
-            {isSignedIn && (
-              <button
-                onClick={() => setShowCreateModal(true)}
-                className="px-6 py-3 bg-pink-500 text-white font-semibold rounded-full hover:bg-pink-600 transition-colors flex items-center gap-2"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                </svg>
-                New Post
-              </button>
-            )}
+            <button
+              onClick={() => setShowCreateModal(true)}
+              className="px-6 py-3 bg-pink-500 text-white font-semibold rounded-full hover:bg-pink-600 transition-colors flex items-center gap-2"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              New Post
+            </button>
           </div>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar */}
           <aside className="w-full lg:w-72 flex-shrink-0 space-y-6">
-            {/* Search */}
             <div className="relative">
               <input
                 type="text"
@@ -724,7 +506,6 @@ export default function CommunityPage() {
               </svg>
             </div>
             
-            {/* Categories */}
             <div className="bg-gray-800/30 rounded-xl border border-gray-700 p-4">
               <h3 className="text-lg font-semibold text-white mb-4">Categories</h3>
               <div className="space-y-2">
@@ -739,15 +520,11 @@ export default function CommunityPage() {
               </div>
             </div>
             
-            {/* Trending Topics */}
             <TrendingTopics topics={trendingTopics} />
           </aside>
 
-          {/* Main Content */}
           <div className="flex-1">
-            {/* Filters */}
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
-              {/* Post Type Filter */}
               <div className="flex gap-2 overflow-x-auto pb-2">
                 {[
                   { value: 'all', label: 'All' },
@@ -770,7 +547,6 @@ export default function CommunityPage() {
                 ))}
               </div>
               
-              {/* Sort */}
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
@@ -782,7 +558,6 @@ export default function CommunityPage() {
               </select>
             </div>
 
-            {/* Posts */}
             {isLoading ? (
               <div className="flex items-center justify-center py-20">
                 <div className="text-center">
@@ -816,7 +591,6 @@ export default function CommunityPage() {
               </div>
             )}
 
-            {/* Load More */}
             {filteredPosts.length > 0 && (
               <div className="text-center mt-8">
                 <button className="px-8 py-3 bg-gray-800 text-white font-medium rounded-full hover:bg-gray-700 transition-colors">
@@ -828,10 +602,6 @@ export default function CommunityPage() {
         </div>
       </main>
 
-      {/* Create Post Modal */}
-      <CreatePostModal isOpen={showCreateModal} onClose={() => setShowCreateModal(false)} />
-
-      {/* Footer */}
       <footer className="border-t border-gray-800 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">

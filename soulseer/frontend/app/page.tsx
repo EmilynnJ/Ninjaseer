@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useAuth } from '@clerk/nextjs';
 import Header from './components/Header';
 
 // Types
@@ -770,7 +769,6 @@ const Footer = () => {
 
 // Main Page Component
 export default function HomePage() {
-  const { isSignedIn } = useAuth();
   const [featuredReaders, setFeaturedReaders] = useState<Reader[]>(mockFeaturedReaders);
   const [liveStreams, setLiveStreams] = useState<LiveStream[]>(mockLiveStreams);
   const [testimonials, setTestimonials] = useState<Testimonial[]>(mockTestimonials);

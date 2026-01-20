@@ -3,9 +3,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useAuth, useUser } from '@clerk/nextjs';
+import dynamic from 'next/dynamic';
 import Header from '../components/Header';
 import AddBalanceModal from '../components/AddBalanceModal';
+
+// Dynamically import Clerk components
+const SignedIn = dynamic(() => import('@clerk/nextjs').then(mod => mod.SignedIn), { ssr: false });
+const SignedOut = dynamic(() => import('@clerk/nextjs').then(mod => mod.SignedOut), { ssr: false });
 
 // Types
 interface UserStats {
@@ -561,9 +565,28 @@ const QuickActions = () => {
 };
 
 // Main Page Component
-export default function DashboardPage() {
-  const { isSignedIn, userId } = useAuth();
-  const { user } = useUser();
+// Sign in required component
+const SignInRequired = () => (
+  <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900/20 to-gray-900">
+    <Header />
+    <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="text-center">
+        <div className="text-6xl mb-4">🔒</div>
+        <h2 className="text-2xl font-bold text-white mb-2">Sign In Required</h2>
+        <p className="text-gray-400 mb-4">Please sign in to access your dashboard</p>
+        <Link
+          href="/sign-in"
+          className="inline-block px-6 py-3 bg-pink-500 text-white font-medium rounded-full hover:bg-pink-600 transition-colors"
+        >
+          Sign In
+        </Link>
+      </div>
+    </div>
+  </div>
+);
+
+// Dashboard content component
+const DashboardContent = () => {
   const [balance, setBalance] = useState(127.50);
   const [stats, setStats] = useState<UserStats>(mockStats);
   const [transactions, setTransactions] = useState<Transaction[]>(mockTransactions);
@@ -572,6 +595,7 @@ export default function DashboardPage() {
   const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
   const [showAddBalance, setShowAddBalance] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [userName, setUserName] = useState('Seeker');
 
   useEffect(() => {
     // Simulate loading
@@ -580,7 +604,6 @@ export default function DashboardPage() {
   }, []);
 
   const handleAddBalance = (amount: number) => {
-    // In production, this would call the API
     setBalance(prev => prev + amount);
     setShowAddBalance(false);
   };
@@ -605,7 +628,7 @@ export default function DashboardPage() {
           {/* Welcome section */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-white mb-2">
-              Welcome back, {user?.firstName || 'Seeker'}! ✨
+              Welcome back, {userName}! ✨
             </h1>
             <p className="text-gray-400">
               Your spiritual journey continues. What guidance do you seek today?
@@ -650,8 +673,23 @@ export default function DashboardPage() {
       <AddBalanceModal
         isOpen={showAddBalance}
         onClose={() => setShowAddBalance(false)}
+        currentBalance={balance}
         onSuccess={handleAddBalance}
       />
     </div>
+  );
+};
+
+// Main Page Component
+export default function DashboardPage() {
+  return (
+    <>
+      <SignedIn>
+        <DashboardContent />
+      </SignedIn>
+      <SignedOut>
+        <SignInRequired />
+      </SignedOut>
+    </>
   );
 }

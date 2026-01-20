@@ -2,10 +2,30 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { useAuth, useUser, UserButton } from '@clerk/nextjs';
 import { usePathname } from 'next/navigation';
-import BalanceDisplay from './BalanceDisplay';
+import dynamic from 'next/dynamic';
+
+// Dynamically import Clerk components to avoid SSR issues
+const UserButton = dynamic(
+  () => import('@clerk/nextjs').then((mod) => mod.UserButton),
+  { ssr: false, loading: () => <div className="w-9 h-9 bg-gray-700 rounded-full animate-pulse" /> }
+);
+
+const SignedIn = dynamic(
+  () => import('@clerk/nextjs').then((mod) => mod.SignedIn),
+  { ssr: false }
+);
+
+const SignedOut = dynamic(
+  () => import('@clerk/nextjs').then((mod) => mod.SignedOut),
+  { ssr: false }
+);
+
+// Import BalanceDisplay dynamically too
+const BalanceDisplay = dynamic(
+  () => import('./BalanceDisplay'),
+  { ssr: false, loading: () => <div className="w-20 h-8 bg-gray-700 rounded animate-pulse" /> }
+);
 
 interface Notification {
   id: string;
@@ -35,15 +55,6 @@ const mockNotifications: Notification[] = [
     isRead: false,
     createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
     actionUrl: '/messages'
-  },
-  {
-    id: '3',
-    type: 'system',
-    title: 'Favorite Reader Online',
-    content: 'Celestial Rose is now available for readings.',
-    isRead: true,
-    createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
-    actionUrl: '/readings/celestial-rose'
   }
 ];
 
@@ -158,12 +169,10 @@ const NotificationDropdown = ({
 
 const MobileMenu = ({ 
   isOpen, 
-  onClose, 
-  isSignedIn 
+  onClose
 }: { 
   isOpen: boolean; 
-  onClose: () => void; 
-  isSignedIn: boolean;
+  onClose: () => void;
 }) => {
   const pathname = usePathname();
 
@@ -221,31 +230,29 @@ const MobileMenu = ({
             ))}
           </div>
           
-          {isSignedIn && (
-            <>
-              <div className="my-4 border-t border-gray-800" />
-              <div className="space-y-1">
-                {userLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={onClose}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
-                      pathname === link.href
-                        ? 'bg-pink-500/20 text-pink-400'
-                        : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                    }`}
-                  >
-                    <span>{link.icon}</span>
-                    <span>{link.label}</span>
-                  </Link>
-                ))}
-              </div>
-            </>
-          )}
+          <SignedIn>
+            <div className="my-4 border-t border-gray-800" />
+            <div className="space-y-1">
+              {userLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={onClose}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
+                    pathname === link.href
+                      ? 'bg-pink-500/20 text-pink-400'
+                      : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                  }`}
+                >
+                  <span>{link.icon}</span>
+                  <span>{link.label}</span>
+                </Link>
+              ))}
+            </div>
+          </SignedIn>
         </nav>
         
-        {!isSignedIn && (
+        <SignedOut>
           <div className="p-4 border-t border-gray-800">
             <Link
               href="/sign-in"
@@ -262,19 +269,17 @@ const MobileMenu = ({
               Create Account
             </Link>
           </div>
-        )}
+        </SignedOut>
       </div>
     </>
   );
 };
 
 export default function Header() {
-  const { isSignedIn, isLoaded } = useAuth();
-  const { user } = useUser();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
-  const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
+  const [notifications] = useState<Notification[]>(mockNotifications);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -343,74 +348,63 @@ export default function Header() {
 
             {/* Right side */}
             <div className="flex items-center gap-2 lg:gap-4">
-              {isLoaded && isSignedIn ? (
-                <>
-                  {/* Balance */}
-                  <div className="hidden sm:block">
-                    <BalanceDisplay />
-                  </div>
+              <SignedIn>
+                {/* Balance */}
+                <div className="hidden sm:block">
+                  <BalanceDisplay />
+                </div>
 
-                  {/* Messages */}
-                  <Link
-                    href="/messages"
+                {/* Messages */}
+                <Link
+                  href="/messages"
+                  className="relative p-2 text-gray-400 hover:text-white transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </Link>
+
+                {/* Notifications */}
+                <div className="relative">
+                  <button
+                    onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
                     className="relative p-2 text-gray-400 hover:text-white transition-colors"
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                     </svg>
-                  </Link>
-
-                  {/* Notifications */}
-                  <div className="relative">
-                    <button
-                      onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-                      className="relative p-2 text-gray-400 hover:text-white transition-colors"
-                    >
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                      </svg>
-                      {unreadCount > 0 && (
-                        <span className="absolute top-1 right-1 w-4 h-4 bg-pink-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
-                          {unreadCount}
-                        </span>
-                      )}
-                    </button>
-                    
-                    <NotificationDropdown
-                      notifications={notifications}
-                      isOpen={isNotificationsOpen}
-                      onClose={() => setIsNotificationsOpen(false)}
-                    />
-                  </div>
-
-                  {/* User menu */}
-                  <UserButton 
-                    afterSignOutUrl="/"
-                    appearance={{
-                      elements: {
-                        avatarBox: 'w-9 h-9'
-                      }
-                    }}
+                    {unreadCount > 0 && (
+                      <span className="absolute top-1 right-1 w-4 h-4 bg-pink-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                        {unreadCount}
+                      </span>
+                    )}
+                  </button>
+                  
+                  <NotificationDropdown
+                    notifications={notifications}
+                    isOpen={isNotificationsOpen}
+                    onClose={() => setIsNotificationsOpen(false)}
                   />
-                </>
-              ) : isLoaded ? (
-                <>
-                  <Link
-                    href="/sign-in"
-                    className="hidden sm:block px-4 py-2 text-gray-300 hover:text-white transition-colors"
-                  >
-                    Sign In
-                  </Link>
-                  <Link
-                    href="/sign-up"
-                    className="px-4 py-2 bg-pink-500 text-white font-medium rounded-full hover:bg-pink-600 transition-colors"
-                  >
-                    Get Started
-                  </Link>
-                </>
-              ) : (
-                <div className="w-9 h-9 bg-gray-700 rounded-full animate-pulse" />
-              )}
+                </div>
+
+                {/* User menu */}
+                <UserButton afterSignOutUrl="/" />
+              </SignedIn>
+
+              <SignedOut>
+                <Link
+                  href="/sign-in"
+                  className="hidden sm:block px-4 py-2 text-gray-300 hover:text-white transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/sign-up"
+                  className="px-4 py-2 bg-pink-500 text-white font-medium rounded-full hover:bg-pink-600 transition-colors"
+                >
+                  Get Started
+                </Link>
+              </SignedOut>
             </div>
           </div>
         </div>
@@ -420,7 +414,6 @@ export default function Header() {
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
-        isSignedIn={isSignedIn || false}
       />
     </>
   );
