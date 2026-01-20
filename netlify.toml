@@ -14,11 +14,6 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Environment variables (set these in Netlify dashboard)
-# NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-# CLERK_SECRET_KEY
-# NEXT_PUBLIC_API_URL
-
 # Redirects for API calls to backend
 [[redirects]]
   from = "/api/*"
